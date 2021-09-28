@@ -1,6 +1,3 @@
-//
-// Created by lia 梁 on 2021/8/5.
-//
 #include <iostream>
 #include <string>
 #include <algorithm>
