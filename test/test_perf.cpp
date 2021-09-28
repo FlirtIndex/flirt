@@ -22,6 +22,7 @@
 
 /*
 Test Script with PerfEvent.
+REMEMBER TO CHANGE THE INCLUDE FILE IN FLIRT (uncomment #include "parameters_perf.h" and comment out others)
 */
 using namespace std;
 

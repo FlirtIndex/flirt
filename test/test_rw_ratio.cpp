@@ -21,6 +21,7 @@
 
 /*
 Test Script for varying read-to-ratio.
+REMEMBER TO CHANGE THE INCLUDE FILE IN FLIRT (uncomment #include "parameters_rw.h" and comment out others)
 */
 using namespace std;
 

@@ -22,6 +22,7 @@
 
 /*
 Test Script for varying number of executions.
+REMEMBER TO CHANGE THE INCLUDE FILE IN FLIRT (uncomment #include "parameters_noexe.h" and comment out others)
 */
 using namespace std;
 

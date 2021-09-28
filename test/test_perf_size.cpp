@@ -22,6 +22,7 @@
 /*
 Test Script for varying getting size of each index
 Not in paper.
+REMEMBER TO CHANGE THE INCLUDE FILE IN FLIRT (uncomment #include "parameters_perf.h" and comment out others)
 */
 using namespace std;
 
