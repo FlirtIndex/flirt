@@ -20,7 +20,7 @@ Test Code
 Run the `move_sub_to_current.sh`script to move all files to main directory. Run any of the test scripts with `./run_xxx.sh`. Alternatively, submit a job with the pbs files on a HPC cluster with `qsub A_XXXX.pbs`. The test dataset is not included.
 
 ## Dataset
-The dataset used are the SOSD datasets. Specifically the 200M unit64 datasets. Remember to rename the files to the following names and move them to the main directory. or change the names in the test scripts.
+The dataset used are the SOSD datasets. Specifically the 200M unit64 datasets. Remember to rename the files to the following names and move them to the main directory or change the names in the test scripts.
 
 - books_200M_unit64 -> f_books
 - fb_200M_uint64 -> f_fb
