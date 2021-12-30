@@ -1,3 +1,6 @@
+//
+// Created by lia 梁 on 2021/8/5.
+//
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -37,7 +40,8 @@ public:
 
     void printQueue();
 
-    // size_t get_size_in_bytes();
+    size_t get_model_size_in_bytes();
+    size_t get_total_size_in_bytes();
 
 };
 
@@ -65,11 +69,17 @@ int Queue<K>::getCurrentSize()
     return m_n;
 }
 
-// template<class K>
-// size_t Queue<K>::get_size_in_bytes()
-// {
-//     return sizeof(Queue<K>) + sizeof(K) * m_capacity;
-// }
+template<class K>
+size_t Queue<K>::get_model_size_in_bytes()
+{
+    return sizeof(int)*2 + sizeof(K)*2 + sizeof(K*);
+}
+
+template<class K>
+size_t Queue<K>::get_total_size_in_bytes()
+{
+    return sizeof(int)*2 + sizeof(K)*(2+m_n) + sizeof(K*);
+}
 
 template<class K>
 int Queue<K>::getCapacity()
