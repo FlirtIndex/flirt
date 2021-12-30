@@ -5,7 +5,7 @@
 
 #include "parameters_flirt.h"
 //#include "parameters_noexe.h"
-//#include "parameters_perf.h"
+// #include "parameters_perf.h"
 //#include "parameters_rw.h"
 #include "Util.hpp"
 
@@ -38,12 +38,32 @@ public:
 		this->nDelete = 0;
 	}
 
+    size_t get_model_size_in_bytes();
+    size_t get_total_size_in_bytes();
+
 	bool search_segment(K key);
 	Segment<K>* push_back(K key);
     void pop_front();
 
     friend class Flirt<K>;
 };
+
+/*
+Size of each Segment
+*/
+template<class K>
+size_t Segment<K>::get_model_size_in_bytes(){
+    
+    return sizeof(int)*2 + sizeof(double)*3 + sizeof(K) + sizeof(Segment<K>*)*2 + sizeof(vector<Key<K>>);
+    //return sizeof(int)*2 + sizeof(double)*3 + sizeof(K) + sizeof(Segment<K>*)*2 + sizeof(vector<Key<K>>) + sizeof(bool)*n;
+}
+
+template<class K>
+size_t Segment<K>::get_total_size_in_bytes(){
+    
+    return sizeof(int)*2 + sizeof(double)*3 + sizeof(K) + sizeof(Segment<K>*)*2 + sizeof(vector<Key<K>>)
+    + sizeof(Key<K>)*n;
+}
 
 /*
 Search
@@ -59,7 +79,10 @@ bool Segment<K>::search_segment(K key) {
 	}
 
 	int pos = (key - keyStart) * slope;
-	return binarySearchVectorKey(keys, pos - ERROR, pos + ERROR, key);
+    int posMin = pos - err - 1;
+    int posMax = pos + err + 1;
+
+	return binarySearchVectorKey(keys, posMin, posMax, key);
 }
 
 /*
@@ -147,7 +170,8 @@ public:
     };
 
     int get_n(){return this->n;}
-    // size_t get_model_size_in_bytes();
+    size_t get_model_size_in_bytes();
+    size_t get_total_size_in_bytes();
 
     void enqueue(K key);
     void dequeue();
@@ -160,14 +184,34 @@ public:
 
 };
 
-// /*
-// Get data structure size
-// */
-// template<class K>
-// size_t Flirt<K>::get_model_size_in_bytes()
-// {
-//     return sizeof(Flirt<K>) + sizeof(pair<K,Segment<K>*>)*n + sizeof(Segment<K>)*n;
-// }
+/*
+Get data structure size
+*/
+template<class K>
+size_t Flirt<K>::get_model_size_in_bytes()
+{
+    size_t model_size = sizeof(Segment<K>*)*2 + sizeof(int)*4 + sizeof(pair<K,Segment<K>*>*) + 
+    sizeof(pair<K,Segment<K>*>)*n;
+
+    for (int i=0; i<n;i++)
+    {
+        model_size += queue[i].second->get_model_size_in_bytes();
+    }
+    return model_size;
+}
+
+template<class K>
+size_t Flirt<K>::get_total_size_in_bytes()
+{
+    size_t total_size = sizeof(Segment<K>*)*2 + sizeof(int)*4 + sizeof(pair<K,Segment<K>*>*) + 
+    sizeof(pair<K,Segment<K>*>)*n;
+
+    for (int i=0; i<n;i++)
+    {
+        total_size += queue[i].second->get_total_size_in_bytes();
+    }
+    return total_size;
+}
 
 /*
 Enqueue 
